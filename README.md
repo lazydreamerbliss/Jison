@@ -29,7 +29,7 @@ jison.load_json(file_name='sample.json')
 
 ```python
 # get dictionary from Json
-print(jison.parse())
+pprint(jison.parse())
 """ output
 {'id': 1,
  'params': [{'key1': 'main',
@@ -42,7 +42,7 @@ print(jison.parse())
 """
 
 # get single Json object
-print(jison.get_single_object(obj_name='params'))
+pprint(jison.get_single_object(obj_name='params'))
 """ output
 {'params': [{'key1': 'main',
              'key2': 'client',
@@ -53,15 +53,15 @@ print(jison.get_single_object(obj_name='params'))
 """
 
 # get multiple Json objects
-print(jison.get_multi_object(obj_name='key1'))
+pprint(jison.get_multi_object(obj_name='key1'))
 """ output
 [{'key1': 'main'}, {'key1': 'sub'}]
 """
 
-# delete Json object
-
-
-
+# delete Json object and return new Json string
+print(jison.remove_object('sample'))
+""" output
+{"key99":[{"key1":"main","key2": "client", "key3":"0/0","key4":0,"key5":2}, {"key1":"sub","key2":"parent","c1":null,"c2":true}], "id":1}
+"""
 ```
-
 
