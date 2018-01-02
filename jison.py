@@ -1,5 +1,5 @@
 import os
-import json
+import re
 
 
 class JsonSyntaxError(Exception):
@@ -77,14 +77,28 @@ class Jison:
 
     def check_json_string(self, json_content: str) -> str:
         if json_content:
-            try:
-                json.loads(json_content)
-                import re
-                return re.sub(' *\n *', ' ', json_content).strip()
-            except:
-                raise InvalidJson('Invalid Json string provided')
+            return re.sub(' *\n *', ' ', json_content).strip()
         else:
             raise InvalidJson('Empty Json string provided')
+
+    def dict_to_json_string(self, json_content: dict) -> str:
+        json_content = str(json_content)
+
+        return Jison.multi_sub({
+            'None': 'null',
+            'True': 'true',
+            'False': 'false',
+            "'": '"'
+        }, json_content)
+
+    @staticmethod
+    def multi_sub(pattern_dict: dict, text: str) -> str:
+        multi_suber = re.compile('|'.join(map(re.escape, pattern_dict)))
+
+        def run(match):
+            return pattern_dict.get(match.group(0))
+
+        return multi_suber.sub(run, text)
 
     def load_json(self, json_string = None, file_name: str = None):
         """
@@ -102,9 +116,7 @@ class Jison:
         if json_string and isinstance(json_string, str):
             self.json = self.check_json_string(json_string)
         elif json_string and isinstance(json_string, dict):
-            self.json = json.dumps(json_string)
-
-            print(self.json)
+            self.json = self.dict_to_json_string(json_string)
 
         elif file_name:
             def convert_file():
@@ -142,12 +154,17 @@ class Jison:
         self.parse(recursion=0)
         self.index = 0
         self.recursion_depth = 0
+        self.obj_name = ''
 
         if not self.chunk_location:
             return {}
 
-        returned_dict = json.loads(
+        cache = self.json
+        self.load_json(
             f'{{{self.json[self.chunk_location[0]:self.chunk_location[1]]}}}')
+        returned_dict = self.parse()
+
+        self.load_json(cache)
         self.chunk_location.clear()
 
         return returned_dict
@@ -165,15 +182,21 @@ class Jison:
         self.index = 0
         self.recursion_depth = 0
         self.multi_object = False
+        self.obj_name = ''
 
         if not self.chunk_location_list:
             return []
 
         returned_list = []
+        cache = self.json
         for chunk in self.chunk_location_list:
-            returned_list.append(json.loads(
-                f'{{{self.json[chunk[0]:chunk[1]]}}}'))
-        self.chunk_location_list.clear()
+            self.load_json(f'{{{cache[chunk[0]:chunk[1]]}}}')
+            result_dict = self.parse()
+            if result_dict:
+                returned_list.append(result_dict)
+            self.index = 0
+
+        self.load_json(cache)
 
         return returned_list
 
@@ -187,7 +210,7 @@ class Jison:
         if isinstance(new_chunk, str):
             new_chunk = self.check_json_string(new_chunk)
         elif isinstance(new_chunk, dict):
-            new_chunk = json.dumps(new_chunk)
+            new_chunk = self.dict_to_json_string(new_chunk)
         else:
             raise Exception(
                 f'Jison.replace_object() only accepts type "str" or "dict", but got "{type(new_chunk)}"')
@@ -298,7 +321,7 @@ class Jison:
             if isinstance(json_string, str):
                 self.json = self.check_json_string(json_string)
             elif isinstance(json_string, dict):
-                self.json = json.dumps(json_string)
+                self.json = self.dict_to_json_string(json_string)
             else:
                 raise Exception(
                     f'Jison.write() only accepts type "str" or "dict", but got {type(json_string)}')
@@ -321,7 +344,9 @@ class Jison:
             raise JsonNotLoaded('Json string is not loaded\nPlease load Json string by running Jison.load_json() before any operation')
 
         if self.json:
-            return self.scanner(recursion)
+            result_dict = self.scanner(recursion)
+            self.index = 0
+            return result_dict
         else:
             raise JsonSyntaxError('No Json string provided')
 
@@ -478,7 +503,11 @@ class Jison:
                         # condition for search object - chunk_location position 1
                         # object ends with comma and new key, followed by a the other objects
                         # e.g. {target_obj: values, other_obj: values, ...}
-                        self.chunk_location.append(self.index - 2)
+
+                        if self.json[self.index - 2] != ',':
+                            self.chunk_location.append(self.index - 1)
+                        else:
+                            self.chunk_location.append(self.index - 2)
                         if self.multi_object:
                             self.chunk_location_list.append(self.chunk_location)
                             self.chunk_location = []
