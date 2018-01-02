@@ -58,10 +58,15 @@ pprint(jison.get_multi_object(obj_name='key1'))
 [{'key1': 'main'}, {'key1': 'sub'}]
 """
 
-# delete Json object and return new Json string
-print(jison.remove_object('sample'))
-""" output
+# delete Json object and return new Json string, this operation will be written to file which the Json is loaded from
+jison.remove_object('sample')
+""" result
 {"key99":[{"key1":"main","key2": "client", "key3":"0/0","key4":0,"key5":2}, {"key1":"sub","key2":"parent","c1":null,"c2":true}], "id":1}
 """
-```
 
+# replace a Json object with another, this operation will be written to file which the Json is loaded from
+jison.replace_object('params', {"replaced": "new_data"})
+""" result
+{'id': 1, 'replaced': 'new_data', 'sample': 'Jison'}
+"""
+```
