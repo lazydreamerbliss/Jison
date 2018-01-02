@@ -5,13 +5,13 @@ Jison is a simple but powerful parser for Json manipulation. It parses a Json st
 
 (the `object` refers any Json `key:value` pair)
 1. String search under tree structure & hierarchical search
-   (requires a 3rd party string match function as parameter to work)
+   (requires a 3rd party string match function which returns int/float as parameter to work)
 2. Single Json object acquisition
    (get one Json object returned as dict)
 3. Multiple Json object acquisition
    (get all Json objects under any depth with same key value and return them as a list of dictionary)
 4. Json object deletion
-   (delete any single Json object)
+   (delete any single Json object and return new Json string)
 5. Json object replacement
    (find and replace any single Json object)
 
@@ -22,7 +22,7 @@ Assume `sample.json` has following content:
 ```
 
 ```python
-# initialization can be a Json string or from `.json` file
+# initialization can be a Json string, a Python dict or from a `.json` file
 jison = Jison()
 jison.load_json(file_name='sample.json')
 ```
