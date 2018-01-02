@@ -692,9 +692,6 @@ class Jison:
         pointer = self.index
         number = 0
 
-        print(self.length)
-        print(pointer)
-
         while pointer < self.length:
             if self.json[pointer] not in '0123456789+-.eE':
                 break
