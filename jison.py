@@ -105,7 +105,7 @@ class Jison:
         if Json string is manually provided then Json in file is ignored
 
         if filename is provided, changes to Json (deletion/replacement) will be
-        written to file (result in form of one-line Json string, beautified
+        written to file (result in form of one-line Json string, a beautified
         Json structure will be overwritten)
 
         if filename is not provided, changes to Json will be returned as Json
@@ -222,10 +222,11 @@ class Jison:
             self.obj_name = obj_name
             self.parse(recursion=0)
             self.index = 0
+            self.obj_name = ''
 
             if self.chunk_location:
                 self.json = f'{self.json[0:self.chunk_location[0]]}{new_chunk[1:-1]}{self.json[self.chunk_location[1]:]}'
-                self.length = self.json
+                self.length = len(self.json)
                 self.chunk_location.clear()
                 self.recursion_depth = 0
                 if self.file_name:
@@ -250,6 +251,7 @@ class Jison:
         self.obj_name = obj_name
         self.parse(recursion=0)
         self.index = 0
+        self.obj_name = ''
 
         if self.chunk_location:
             left = self.chunk_location[0]
@@ -282,6 +284,7 @@ class Jison:
             self.length = len(self.json)
             self.recursion_depth = 0
             self.chunk_location.clear()
+
             if self.file_name:
                 self.write(skip_check=True)
                 return 'True'
@@ -688,6 +691,10 @@ class Jison:
         self.ignore_white_space()
         pointer = self.index
         number = 0
+
+        print(self.length)
+        print(pointer)
+
         while pointer < self.length:
             if self.json[pointer] not in '0123456789+-.eE':
                 break
