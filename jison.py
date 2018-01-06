@@ -38,7 +38,7 @@ class Jison:
        (find and replace any single Json object)
     """
 
-    def __init__(self):
+    def __init__(self, json_string=None, file_name: str = None):
         self.NONE = 0
         self.OBJ_OPEN = 1
         self.OBJ_CLOSE = 2
@@ -56,7 +56,7 @@ class Jison:
         self.success = True
 
         # object (dict) manipulation:
-        # old_chunk: for get_single_object()/remove_object()/replace_object()
+        # old_chunk: for get_object()/remove_object()/replace_object()
         # new_chunk: for replace_object()
         self.chunk_location = []
         self.obj_name = ''
@@ -77,6 +77,9 @@ class Jison:
         # deep/ratio_method used for search mechanism
         self.deep = 0
         self.ratio_method = None
+
+        if json_string or file_name:
+            self.load_json(json_string, file_name)
 
     def check_json_string(self, json_content: str) -> str:
         if json_content:
@@ -139,7 +142,7 @@ class Jison:
 
         self.length = len(self.json)
 
-    def get_single_object(self, obj_name: str, value_only: bool = False):
+    def get_object(self, obj_name: str, value_only: bool = False):
         """
         return a matched object key-value pair
 
@@ -345,7 +348,7 @@ class Jison:
     def parse(self, recursion: int = None) -> dict:
         if not hasattr(self, 'json'):
             raise JsonNotLoaded(
-                'Json string is not loaded\nPlease load Json string by running Jison.load_json() before any operation')
+                'Json string is not loaded\nPlease load Json via running Jison.load_json() before any operation')
 
         if self.json:
             result_dict = self.scanner(recursion)
