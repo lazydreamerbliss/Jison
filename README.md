@@ -59,11 +59,12 @@ print(jison.get_multi_object(obj_name='key1'))
 """
 
 # get a list of multiple Json objects
-key1, key2 = jison.get_multi_object(obj_name=['key1', 'key2'])
-print(key1, key2)
+key1, key2, key99 = jison.get_multi_object(obj_name=['key1', 'key2, 'key99'])
+print(key1, key2, key99)
 """ result
 [{'key1': 'main'}, {'key1': 'sub'}]
 [{'key2': 'client'}, {'key2': 'parent'}]
+None
 """
 
 # delete Json object and return a Jison instance, this operation will be written to file which the Json is loaded from
