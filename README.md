@@ -30,7 +30,7 @@ jison.load_json(file_name='sample.json')
 ```python
 # get dictionary from Json
 pprint(jison.parse())
-""" output
+""" result
 {'id': 1,
  'params': [{'key1': 'main',
              'key2': 'client',
@@ -42,8 +42,8 @@ pprint(jison.parse())
 """
 
 # get single Json object
-pprint(jison.get_single_object(obj_name='params'))
-""" output
+pprint(jison.get_object(obj_name='params'))
+""" result
 {'params': [{'key1': 'main',
              'key2': 'client',
              'key3': '0/0',
@@ -53,19 +53,27 @@ pprint(jison.get_single_object(obj_name='params'))
 """
 
 # get multiple Json objects
-pprint(jison.get_multi_object(obj_name='key1'))
-""" output
+print(jison.get_multi_object(obj_name='key1'))
+""" result
 [{'key1': 'main'}, {'key1': 'sub'}]
 """
 
+# get a list of multiple Json objects
+key1, key2 = jison.get_multi_object(obj_name=['key1', 'key2'])
+print(key1, key2)
+""" result
+[{'key1': 'main'}, {'key1': 'sub'}]
+[{'key2': 'client'}, {'key2': 'parent'}]
+"""
+
 # delete Json object and return new Json string, this operation will be written to file which the Json is loaded from
-jison.remove_object('sample')
+print(jison.remove_object('sample').json)
 """ result
 {"key99":[{"key1":"main","key2": "client", "key3":"0/0","key4":0,"key5":2}, {"key1":"sub","key2":"parent","c1":null,"c2":true}], "id":1}
 """
 
 # replace a Json object with another, this operation will be written to file which the Json is loaded from
-jison.replace_object('params', {"replaced": "new_data"})
+print(jison.replace_object('params', {"replaced": "new_data"}).json)
 """ result
 {'id': 1, 'replaced': 'new_data', 'sample': 'Jison'}
 """
