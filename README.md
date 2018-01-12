@@ -18,9 +18,14 @@ Jison is a simple but powerful parser for Json manipulation. It parses a Json st
 ## Examples
 Assume `sample.json` has following content:
 ```json
-{"sample":
-   "Jison",
-      "params":[{"key1":"main","key2":"client","key3":"0/0","key4":0,"key5":2}, {"key1":"sub","key2":"parent","c1":null,"c2":true}],"id":1}
+{'id': 1,
+ 'params': [{'key1': 'main',
+             'key2': 'client',
+             'key3': '0/0',
+             'key4': 0,
+             'key5': 2},
+            {'c1': None, 'c2': True, 'key1': 'sub', 'key2': 'parent'}],
+ 'sample': 'Jison'}
 ```
 
 ```python
