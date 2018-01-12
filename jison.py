@@ -190,12 +190,14 @@ class Jison:
         self.multi_object = True
         self.parse(recursion=0)
 
-        if not self.chunk_location_dict:
+        if not self.chunk_location_dict and isinstance(obj_name, list):
+            return [None for _ in range(len(obj_name))]
+        elif not self.chunk_location_dict:
             return None
 
         cache = self.json
         returned_list = []
-        if isinstance(self.obj_name, str):
+        if isinstance(obj_name, str):
             for key in self.chunk_location_dict:
                 for chunk in self.chunk_location_dict.get(key):
                     self.load_json(f'{{{cache[chunk[0]:chunk[1]]}}}')
@@ -208,7 +210,7 @@ class Jison:
                             returned_list.append(result_dict)
 
         else:
-            for key in self.obj_name:
+            for key in obj_name:
                 chunks_for_each_string = self.chunk_location_dict.get(key)
                 if chunks_for_each_string:
                     returned_list.append([])
@@ -225,7 +227,6 @@ class Jison:
                     returned_list.append(None)
 
         self.load_json(cache)
-        self.obj_name = None
         self.chunk_location_dict.clear()
 
         if not returned_list:
@@ -387,7 +388,7 @@ class Jison:
             self.index = 0
             self.recursion_depth = 0
 
-            if self.obj_name and not self.multi_object:
+            if self.obj_name:
                 self.obj_name = None
             if self.single_object:
                 self.single_object = False
@@ -787,4 +788,3 @@ class Jison:
         while self.json[self.index] == ' ' or self.json[self.index] == '\t' \
                 or self.json[self.index] == '\n':
             self.index += 1
-            
