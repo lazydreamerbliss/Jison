@@ -5,7 +5,7 @@ Jison is a simple but powerful parser for Json manipulation. It parses a Json st
 
 (the `object` refers any Json `key:value` pair)
 1. String search under tree structure & hierarchical search
-   (requires a 3rd party string match function which returns int/float as parameter to work)
+   (requires a 3rd party string match function which returns int/float in [0, 1] as parameter to work)
 2. Single Json object acquisition
    (get one Json object returned as dict)
 3. Multiple Json object acquisition
