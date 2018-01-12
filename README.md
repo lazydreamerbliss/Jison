@@ -19,7 +19,7 @@ Jison is a simple but powerful parser for Json manipulation. It parses a Json st
 Assume `sample.json` has following content:
 ```json
 {"id": 1,
- 'params': [{"key1": "main",
+ "params": [{"key1": "main",
              "key2": "client",
              "key3": "0/0",
              "key4": 0,
