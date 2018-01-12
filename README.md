@@ -11,7 +11,7 @@ Jison is a simple but powerful parser for Json manipulation. It parses a Json st
 3. Multiple Json object acquisition
    (get all Json objects under any depth with same key value and return them as a list of dictionary)
 4. Json object deletion
-   (delete any single Json object and return new Json string)
+   (delete any single Json objectg)
 5. Json object replacement
    (find and replace any single Json object)
 
