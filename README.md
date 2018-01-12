@@ -29,9 +29,9 @@ Assume `sample.json` has following content:
 ```
 
 ```python
-# initialization can be a Json string, a Python dict or from a `.json` file
+# initialization can be a Json string, a Python dict or from a `sample` + `.json` file
 jison = Jison()
-jison.load_json(file_name='sample.json')
+jison.load_json(file_name='sample')
 ```
 
 ```python
