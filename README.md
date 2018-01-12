@@ -1,7 +1,7 @@
 # Jison
 Jison, a Tiny All-Powerful Json Parser (Python3.6)
 
-Jison is a simple but powerful parser for Json manipulation. It parses a Json string into a dictionary with syntax check like what Python's builtin method `json.loads()` does, but beside this it provides many additional features:
+Jison is a simple but powerful parser for Json manipulation. It parses a Json string into a dictionary with syntax check like what Python's builtin method `json.loads()` does, or write to file like `json.dump()`, but beside these it provides many additional features:
 
 (the `object` refers any Json `key:value` pair)
 1. String search under tree structure & hierarchical search
@@ -11,7 +11,7 @@ Jison is a simple but powerful parser for Json manipulation. It parses a Json st
 3. Multiple Json object acquisition
    (get all Json objects under any depth with same key value and return them as a list of dictionary)
 4. Json object deletion
-   (delete any single Json objectg)
+   (delete any single Json object)
 5. Json object replacement
    (find and replace any single Json object)
 
