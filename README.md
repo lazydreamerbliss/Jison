@@ -70,13 +70,13 @@ None
 """
 
 # delete Json object and return a Jison instance, this operation will be written to file which the Json is loaded from
-print(jison.remove_object('params').json)
+print(jison.remove_object(obj_name='params').json)
 """ result
 {'id': 1, 'sample': 'Jison'}
 """
 
 # replace a Json object with another and return a Jison instance, this operation will be written to file which the Json is loaded from
-print(jison.replace_object('params', {"replaced": "new_data"}).json)
+print(jison.replace_object(obj_name='params', new_chunk={"replaced": "new_data"}).json)
 """ result
 {'id': 1, 'replaced': 'new_data', 'sample': 'Jison'}
 """
