@@ -66,13 +66,13 @@ print(key1, key2)
 [{'key2': 'client'}, {'key2': 'parent'}]
 """
 
-# delete Json object and return new Json string, this operation will be written to file which the Json is loaded from
+# delete Json object and return a Jison instance, this operation will be written to file which the Json is loaded from
 print(jison.remove_object('sample').json)
 """ result
 {"key99":[{"key1":"main","key2": "client", "key3":"0/0","key4":0,"key5":2}, {"key1":"sub","key2":"parent","c1":null,"c2":true}], "id":1}
 """
 
-# replace a Json object with another, this operation will be written to file which the Json is loaded from
+# replace a Json object with another and return a Jison instance, this operation will be written to file which the Json is loaded from
 print(jison.replace_object('params', {"replaced": "new_data"}).json)
 """ result
 {'id': 1, 'replaced': 'new_data', 'sample': 'Jison'}
