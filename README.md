@@ -18,7 +18,9 @@ Jison is a simple but powerful parser for Json manipulation. It parses a Json st
 ## Examples
 Assume `sample.json` has following content:
 ```json
-{"sample":"Jison","params":[{"key1":"main","key2":"client","key3":"0/0","key4":0,"key5":2}, {"key1":"sub","key2":"parent","c1":null,"c2":true}],"id":1}
+{"sample":
+   "Jison",
+      "params":[{"key1":"main","key2":"client","key3":"0/0","key4":0,"key5":2}, {"key1":"sub","key2":"parent","c1":null,"c2":true}],"id":1}
 ```
 
 ```python
@@ -58,19 +60,19 @@ print(jison.get_multi_object(obj_name='key1'))
 [{'key1': 'main'}, {'key1': 'sub'}]
 """
 
-# get a list of multiple Json objects
-key1, key2, key99 = jison.get_multi_object(obj_name=['key1', 'key2, 'key99'])
-print(key1, key2, key99)
+# get a list of multiple Json objects, or None if no key is matched
+key1, key99, key2 = jison.get_multi_object(obj_name=['key1', 'key99, 'key2'])
+print(key1, key99, key2)
 """ result
 [{'key1': 'main'}, {'key1': 'sub'}]
-[{'key2': 'client'}, {'key2': 'parent'}]
 None
+[{'key2': 'client'}, {'key2': 'parent'}]
 """
 
 # delete Json object and return a Jison instance, this operation will be written to file which the Json is loaded from
-print(jison.remove_object('sample').json)
+print(jison.remove_object('params').json)
 """ result
-{"key99":[{"key1":"main","key2": "client", "key3":"0/0","key4":0,"key5":2}, {"key1":"sub","key2":"parent","c1":null,"c2":true}], "id":1}
+{'id': 1, 'sample': 'Jison'}
 """
 
 # replace a Json object with another and return a Jison instance, this operation will be written to file which the Json is loaded from
