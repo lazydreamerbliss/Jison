@@ -4,16 +4,16 @@ Jison is a tiny all-Powerful Fluent Json parser (Python3.6)
 Jison is a simple but powerful parser for Json manipulation. It parses a Json string into a dictionary with syntax check like what Python's builtin method `json.loads()` does, or write to file like `json.dump()`, but beside these it provides many additional features:
 
 (the `object` refers any Json `key:value` pair)
-0. Fluent json operation with dot, for example: `json.key1.key2.key3[0].key4`
-1. String search under tree structure & hierarchical search
+1. Fluent json operation with dot, for example: `json.key1.key2.key3[0].key4`
+2. String search under tree structure & hierarchical search
    (requires a 3rd party string match function which returns int/float in [0, 1] as parameter to work)
-2. Single Json object acquisition
+3. Single Json object acquisition
    (get one Json object returned as dict)
-3. Multiple Json object acquisition
+4. Multiple Json object acquisition
    (get all Json objects under any depth with same key value and return them as a list of dictionary)
-4. Json object deletion
+5. Json object deletion
    (delete any single Json object)
-5. Json object replacement
+6. Json object replacement
    (find and replace any single Json object)
 
 ## Examples
