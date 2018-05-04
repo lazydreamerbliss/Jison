@@ -1,5 +1,5 @@
-# Jison
-Jison, a Tiny All-Powerful Json Parser (Python3.6)
+## Jison
+Jison is a tiny all-Powerful Json parser (Python3.6)
 
 Jison is a simple but powerful parser for Json manipulation. It parses a Json string into a dictionary with syntax check like what Python's builtin method `json.loads()` does, or write to file like `json.dump()`, but beside these it provides many additional features:
 
@@ -34,8 +34,8 @@ jison = Jison(file_name='sample')
 ```
 
 ```python
-# get dictionary from Json
-pprint(jison.parse())
+# parse the Json and get dictionary
+json = jison.parse()
 """ result
 {'id': 1,
  'params': [{'key1': 'main',
@@ -47,8 +47,8 @@ pprint(jison.parse())
  'sample': 'Jison'}
 """
 
-# get single Json object
-pprint(jison.get_object(obj_name='params'))
+# get single Json object in dictionary
+obj = jison.get_object(obj_name='params')
 """ result
 {'params': [{'key1': 'main',
              'key2': 'client',
@@ -59,28 +59,27 @@ pprint(jison.get_object(obj_name='params'))
 """
 
 # get multiple Json objects
-print(jison.get_multi_object(obj_name='key1'))
+objs = jison.get_multi_object(obj_name='key1')
 """ result
 [{'key1': 'main'}, {'key1': 'sub'}]
 """
 
 # get a list of multiple Json objects, or None if no key is matched
 key1, key99, key2 = jison.get_multi_object(obj_name=['key1', 'key99, 'key2'])
-print(key1, key99, key2)
 """ result
-[{'key1': 'main'}, {'key1': 'sub'}]
-None
-[{'key2': 'client'}, {'key2': 'parent'}]
+key1:  [{'key1': 'main'}, {'key1': 'sub'}]
+key99: None
+key2:  [{'key2': 'client'}, {'key2': 'parent'}]
 """
 
 # delete Json object and return a Jison instance, this operation will be written to file which the Json is loaded from
-print(jison.remove_object(obj_name='params').json)
+new_json = jison.remove_object(obj_name='params').json
 """ result
 {'id': 1, 'sample': 'Jison'}
 """
 
 # replace a Json object with another and return a Jison instance, this operation will be written to file which the Json is loaded from
-print(jison.replace_object(obj_name='params', new_chunk={"replaced": "new_data"}).json)
+replaced_json = jison.replace_object(obj_name='params', new_chunk={"replaced": "new_data"}).json
 """ result
 {'id': 1, 'replaced': 'new_data', 'sample': 'Jison'}
 """
