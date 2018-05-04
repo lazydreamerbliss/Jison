@@ -17,7 +17,7 @@ Jison is a simple but powerful parser for Json manipulation. It parses a Json st
    (find and replace any single Json object)
 
 ## Examples
-Assume `sample.json` has following content:
+Assuming `sample.json` has following content:
 ```json
 {"id": 1,
  "params": [{"key1": "main",
@@ -30,7 +30,7 @@ Assume `sample.json` has following content:
 ```
 
 ```python
-# initialization can be a Json string, a Python dict or from a `sample` + `.json` file
+# the initialization can be a Json string, a Python dict or from a `sample` + `.json` file
 >>> jison = Jison(fp=open('sample.json', 'r'))
 ```
 
