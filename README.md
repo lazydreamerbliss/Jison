@@ -58,9 +58,9 @@ Assuming `sample.json` has following content:
 """
 ```
 ---
-```
+```python
 # get single Json object in dictionary
->>> obj = jison.get_object(obj_name='params')
+>>> jison.get_object(obj_name='params')
 """ result
 {'params': [{'key1': 'main',
              'key2': 'client',
@@ -71,15 +71,15 @@ Assuming `sample.json` has following content:
 """
 ```
 ---
-```
+```python
 # get multiple Json objects
->>> objs = jison.get_multi_object(obj_name='key1')
+>>> jison.get_multi_object(obj_name='key1')
 """ result
 [{'key1': 'main'}, {'key1': 'sub'}]
 """
 ```
 ---
-```
+```python
 # get a list of multiple Json objects, or None if no key is matched
 >>> key1, key99, key2 = jison.get_multi_object(obj_name=['key1', 'key99, 'key2'])
 """ result
@@ -89,17 +89,17 @@ key2:  [{'key2': 'client'}, {'key2': 'parent'}]
 """
 ```
 ---
-```
+```python
 # delete Json object and return a Jison instance, this operation will be written to file which the Json is loaded from
->>> new_json = jison.remove_object(obj_name='params').json
+>>> jison.remove_object(obj_name='params').json
 """ result
 {'id': 1, 'sample': 'Jison'}
 """
 ```
 ---
-```
+```python
 # replace a Json object with another and return a Jison instance, this operation will be written to file which the Json is loaded from
->>> replaced_json = jison.replace_object(obj_name='params', new_chunk={"replaced": "new_data"}).json
+>>> jison.replace_object(obj_name='params', new_chunk={"replaced": "new_data"}).json
 """ result
 {'id': 1, 'replaced': 'new_data', 'sample': 'Jison'}
 """
